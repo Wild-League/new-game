@@ -42,7 +42,7 @@ public partial class @CardControl: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""8e2f8cb7-0771-4d9a-b9ef-41c227199153"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Default"",
                     ""action"": ""CardInteraction"",

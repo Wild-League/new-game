@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Linq;
-using Fusion;
-using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 namespace Project.Scripts.Gameplay
 {
-    public class DeckController : NetworkBehaviour
+    public class DeckController : MonoBehaviour
     {
+        private GameObject cardPreview;
+        private static Vector3 CardOffset = new Vector3(.1f, -.2f, 0);
+
         public static DeckController Instance { get; private set; }
 
         #region Player Input
@@ -27,9 +24,43 @@ namespace Project.Scripts.Gameplay
         public void OnEnable()
         {
             cardHold = playerInput.Default.CardInteraction;
-            cardHold.started += SelectCard;
-
-            cardHold.canceled += PlaceCard;
+            cardHold.started += act =>
+            {
+                if (SelectedCard != null)
+                {
+                    if (Physics.Raycast(Camera.ScreenToWorldPoint(Input.mousePosition), Vector3.forward, out var hitCard
+                            , Mathf.Infinity, cardsLayer))
+                    {
+                        Debug.Log("first");
+                        SelectCard(hitCard);
+                    }
+                    else
+                    {
+                        if (!Physics.Raycast(Camera.ScreenToWorldPoint(Input.mousePosition - CalculateOffset())
+                                , Vector3.forward
+                                , out var hitArena, Mathf.Infinity, arenaLayer
+                            ))
+                        {
+                            SelectedCard.transform.position = CardInitialPosition;
+                            SelectedCard = null;
+                        }
+                        else
+                        {
+                            PlaceCard(hitArena);
+                            Debug.Log("second");
+                        }
+                    }
+                }
+                else
+                {
+                    if (Physics.Raycast(Camera.ScreenToWorldPoint(Input.mousePosition), Vector3.forward, out var hitCard
+                            , Mathf.Infinity, cardsLayer))
+                    {
+                        SelectCard(hitCard);
+                        Debug.Log("third");
+                    }
+                }
+            };
 
             cardHold.Enable();
         }
@@ -44,14 +75,11 @@ namespace Project.Scripts.Gameplay
         [SerializeField]
         private Camera Camera;
 
-        private Vector3 initialDragMousePos;
-        private Vector3 endDragMousePos;
-
         private static CardRepresentation SelectedCard;
         private Vector3 CardInitialPosition;
 
         [SerializeField]
-        private LayerMask ignoredOnPlace;
+        private LayerMask arenaLayer, cardsLayer;
 
         [field: SerializeField]
         public CardRepresentation CardOne { get; private set; }
@@ -71,50 +99,41 @@ namespace Project.Scripts.Gameplay
         private void Update()
         {
             if (SelectedCard == null) return;
-            if (cardHold.IsInProgress())
-            {
+
+            if (SelectedCard.cardInfo.type == "spell")
                 SelectedCard.gameObject.transform.position = new Vector3(
-                    Camera.ScreenToWorldPoint(Input.mousePosition).x, Camera.ScreenToWorldPoint(Input.mousePosition).y
+                    Camera.ScreenToWorldPoint(Input.mousePosition).x
+                    , Camera.ScreenToWorldPoint(Input.mousePosition).y
                     , -5);
-            }
+            else
+                SelectedCard.gameObject.transform.position = new Vector3(
+                    Camera.ScreenToWorldPoint(Input.mousePosition).x
+                    , Camera.ScreenToWorldPoint(Input.mousePosition).y
+                    , -5) - CalculateOffset();
         }
 
-        private void SelectCard(InputAction.CallbackContext context)
-        {
-            initialDragMousePos = Input.mousePosition;
-            if (!Physics.Raycast(Camera.ScreenToWorldPoint(initialDragMousePos), Vector3.forward, out var hit
-                    , Mathf.Infinity))
-            {
-                return;
-            }
 
+        private void SelectCard(RaycastHit hit)
+        {
             if (!hit.collider.CompareTag("ClickableCard")) return;
             SelectedCard = hit.collider.GetComponent<CardRepresentation>();
-
             CardInitialPosition = SelectedCard.transform.position;
+            SelectedCard.SelectCard(true);
+            ArenaController.Instance.ShowArenaLimit(PlayerController.Instance.side);
         }
 
-        private void PlaceCard(InputAction.CallbackContext context)
+        private void PlaceCard(RaycastHit hit)
         {
             if (SelectedCard == null) return;
-            endDragMousePos = Input.mousePosition;
+            SelectedCard.SelectCard(false);
+            ArenaController.Instance.HideArenaLimit();
 
-            if (!Physics.Raycast(Camera.ScreenToWorldPoint(endDragMousePos), Vector3.forward, out var hit
-                    , Mathf.Infinity
-                    , ignoredOnPlace
-                ))
-            {
-                SelectedCard.transform.position = CardInitialPosition;
-                SelectedCard = null;
-                return;
-            }
-
-
-            if (hit.collider.CompareTag("Right Arena"))
+            if (hit.collider.CompareTag($"{PlayerController.Instance.side.ToString()} Arena"))
             {
                 SelectedCard.UseCard();
                 SelectedCard.transform.position = CardInitialPosition;
                 DeckCicle();
+                SelectedCard = null;
             }
             else
             {
@@ -129,6 +148,25 @@ namespace Project.Scripts.Gameplay
             var oldCard = SelectedCard.cardInfo;
             SelectedCard.cardInfo = NextCard.cardInfo;
             NextCard.cardInfo = player.GetNextCard(oldCard);
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (SelectedCard == null) return;
+
+            if (SelectedCard.cardInfo.type == "spell")
+                Gizmos.DrawWireSphere(
+                    SelectedCard.gameObject.transform.position
+                    , SelectedCard.cardInfo.attack_range / 40);
+            else
+                Gizmos.DrawWireSphere(
+                    SelectedCard.gameObject.transform.position + CalculateOffset()
+                    , SelectedCard.cardInfo.attack_range / 40);
+        }
+
+        private static Vector3 CalculateOffset()
+        {
+            return PlayerController.Instance.side == PlayerSide.Left ? -CardOffset : CardOffset;
         }
     }
 }

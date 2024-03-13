@@ -1,19 +1,15 @@
 ﻿using System;
+using Fusion;
 using Project.Scripts.Core.Base;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [Serializable]
-public class Spell : Card
+public class Spell : CardJSON
 {
-    public Spell(Sprite cardImage, string cardName, float cardCost)
-    {
-        CardType = CardType.Spell;
-        CardImage = cardImage;
-        CardName = cardName;
-        CardCost = cardCost;
-    }
-
     public virtual void Use()
     {
+        NetworkRunner.GetRunnerForScene(SceneManager.GetActiveScene())
+            .Spawn(GameObject.CreatePrimitive(PrimitiveType.Sphere));
     }
 }

@@ -1,27 +1,19 @@
 ﻿using System;
+using Fusion;
 using JetBrains.Annotations;
 using Project.Scripts.Core.Base;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [Serializable]
-public class Minion : Card, ISpawnable
+public class Minion : CardJSON, ISpawnable
 {
     public int CardActualHealth { get; set; }
-    public int CardMaxHealth { get; }
-
-    public Minion([CanBeNull] Sprite cardImage, string cardName, float cardCost, int cardMaxHealth)
-    {
-        CardType = CardType.Minion;
-        CardImage = cardImage;
-        CardName = cardName;
-        CardCost = cardCost;
-        CardActualHealth = cardMaxHealth;
-        CardMaxHealth = cardMaxHealth;
-    }
 
     public void Spawn()
     {
-        Debug.Log("Spawned the minion");
+        NetworkRunner.GetRunnerForScene(SceneManager.GetActiveScene())
+            .Spawn(GameObject.CreatePrimitive(PrimitiveType.Capsule));
     }
 
     public void OnSpawn()

@@ -1,25 +1,18 @@
 ﻿using System;
+using Fusion;
 using Project.Scripts.Core.Base;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [Serializable]
-public class Building : Card, ISpawnable
+public class Building : CardJSON, ISpawnable
 {
-    public int CardMaxHealth { get; }
     public int CardActualHealth { get; set; }
-
-    public Building(string cardName, Sprite cardImage, float cardCost, int cardMaxHealth)
-    {
-        CardType = CardType.Building;
-        CardName = cardName;
-        CardImage = cardImage;
-        CardCost = cardCost;
-        CardMaxHealth = cardMaxHealth;
-    }
 
     public void Spawn()
     {
-        throw new System.NotImplementedException();
+        NetworkRunner.GetRunnerForScene(SceneManager.GetActiveScene())
+            .Spawn(GameObject.CreatePrimitive(PrimitiveType.Quad));
     }
 
     public void OnSpawn()

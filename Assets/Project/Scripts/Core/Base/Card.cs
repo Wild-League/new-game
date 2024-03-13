@@ -1,31 +1,57 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Project.Scripts.Core.Base
 {
-    public abstract class Card
+    public class Card
     {
-        public int CardID { get; protected set; }
-        public string CardName { get; protected set; }
-        public CardType CardType { get; protected set; }
-        public float CardCost { get; protected set; }
-        public float CardDamage { get; protected set; }
-        public float CardRange { get; protected set; }
-        public float CardSpeed { get; protected set; }
-        public float CardLife { get; protected set; }
-
-        public Sprite CardImage { get; protected set; }
-        public Vector2 CardDimensions { get; protected set; }
+        public int id;
+        public string name;
+        public string type;
+        public float cooldown;
+        public float damage;
+        public float attack_range;
+        public float speed;
+        public float life;
+        public Sprite img_card;
+        public Sprite img_preview;
+        public Sprite[] img_attack;
+        public Sprite[] img_death;
+        public Sprite[] img_walk;
+        public bool readyToPlay = false;
     }
 
-    public struct CardBase
+    [Serializable]
+    public class CardJSON
     {
-        
+        public int id;
+        public string name;
+        public string type;
+        public float cooldown;
+        public float damage;
+        public float attack_range;
+        public float speed;
+        public float life;
+        public string img_card;
+        public string img_preview;
+        public string img_attack;
+        public string img_death;
+        public string img_walk;
     }
-    
+
+    [Serializable]
+    public class DeckJSON
+    {
+        public int id;
+        public string name;
+        public List<CardJSON> cards;
+    }
+
     public enum CardType
     {
         Spell
         , Building
-        , Minion
+        , Char
     }
 }
