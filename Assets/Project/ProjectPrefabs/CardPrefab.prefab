@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 633648552095506615}
   - component: {fileID: 4979218841145371824}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: CardBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5909629998944509653}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: CardView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1326053666474525713}
   - component: {fileID: 5653022868532048064}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Cost Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -212,7 +212,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 401200406472023517}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Cost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,7 +246,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7245918319609781317}
   - component: {fileID: 8694165695729448005}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: CardBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -331,7 +331,7 @@ GameObject:
   - component: {fileID: 4018083850902262907}
   - component: {fileID: 8271253131020225490}
   - component: {fileID: 9110672935317106681}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: CardName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -501,7 +501,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4995316458755482607}
   - component: {fileID: 6580272337006762942}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -586,7 +586,7 @@ GameObject:
   - component: {fileID: 4778450700128789829}
   - component: {fileID: 1053778868314682885}
   - component: {fileID: 5053858209743476651}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: CardPrefab
   m_TagString: ClickableCard
   m_Icon: {fileID: 0}
@@ -645,7 +645,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3164440564360344061}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Design
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -679,7 +679,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6559031615137335796}
   - component: {fileID: 2190191495725763401}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: CardImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -696,7 +696,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.004400381, y: 0.16300002, z: 0}
-  m_LocalScale: {x: 0.09, y: 0.07, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5909629998944509653}
@@ -742,7 +742,7 @@ SpriteRenderer:
   m_SortingLayerID: 463415255
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 31b6a4be9ef05e24a900c38729abcc18, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -750,7 +750,7 @@ SpriteRenderer:
   m_Size: {x: 0.5582279, y: 0.54001886}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &8615675743377535704
@@ -763,7 +763,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7670599328391594809}
   - component: {fileID: 2951181751587680926}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: CardPreview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -824,9 +824,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 463415255
-  m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1000
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -849,7 +849,7 @@ GameObject:
   - component: {fileID: 1356594267130583803}
   - component: {fileID: 5912656046955984609}
   - component: {fileID: 1371323987939822335}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: CardCost
   m_TagString: Untagged
   m_Icon: {fileID: 0}

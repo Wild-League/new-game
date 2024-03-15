@@ -6,14 +6,11 @@ using UnityEngine;
 
 public class CardRepresentation : MonoBehaviour
 {
-    [field: SerializeField]
-    public int CardIndex { get; private set; }
+    [field: SerializeField] public int CardIndex { get; private set; }
 
-    [SerializeField]
-    private GameObject cardViewContainer;
+    [SerializeField] private GameObject cardViewContainer;
 
-    [SerializeField]
-    private SpriteRenderer cardPreview;
+    [SerializeField] private SpriteRenderer cardPreview;
 
     private Card _card;
 
@@ -44,26 +41,22 @@ public class CardRepresentation : MonoBehaviour
 
             cardPreview.flipX = PlayerController.Instance.side switch
             {
-                PlayerSide.Left => true
-                , PlayerSide.Right => false
-                , _ => throw new ArgumentOutOfRangeException()
+                PlayerSide.Left => true, PlayerSide.Right => false, _ => throw new ArgumentOutOfRangeException()
             };
         }
     }
 
-    [SerializeField]
-    private SpriteRenderer cardImageComp;
+    [SerializeField] private SpriteRenderer cardImageComp;
 
-    [SerializeField]
-    private TMP_Text cardNameComp;
+    [SerializeField] private TMP_Text cardNameComp;
 
-    [SerializeField]
-    private TMP_Text cardCostComp;
+    [SerializeField] private TMP_Text cardCostComp;
 
     public void SelectCard(bool selected)
     {
         cardViewContainer.SetActive(!selected);
         cardPreview.gameObject.SetActive(selected);
+        gameObject.layer = selected ? LayerMask.NameToLayer("Ignore Raycast") : LayerMask.NameToLayer("Card");
     }
 
     public void UseCard()

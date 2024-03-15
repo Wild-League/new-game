@@ -8,6 +8,7 @@ namespace Project.Scripts.Gameplay
         private GameObject cardPreview;
         private static Vector3 CardOffset = new Vector3(.1f, -.2f, 0);
 
+
         public static DeckController Instance { get; private set; }
 
         #region Player Input
@@ -31,7 +32,9 @@ namespace Project.Scripts.Gameplay
                     if (Physics.Raycast(Camera.ScreenToWorldPoint(Input.mousePosition), Vector3.forward, out var hitCard
                             , Mathf.Infinity, cardsLayer))
                     {
-                        Debug.Log("first");
+                        Debug.Log("select another card");
+                        SelectedCard.transform.position = CardInitialPosition;
+                        UnselectCard();
                         SelectCard(hitCard);
                     }
                     else
@@ -41,13 +44,15 @@ namespace Project.Scripts.Gameplay
                                 , out var hitArena, Mathf.Infinity, arenaLayer
                             ))
                         {
+                            Debug.Log("reset card");
                             SelectedCard.transform.position = CardInitialPosition;
+                            UnselectCard();
                             SelectedCard = null;
                         }
                         else
                         {
                             PlaceCard(hitArena);
-                            Debug.Log("second");
+                            Debug.Log("place card");
                         }
                     }
                 }
@@ -57,7 +62,7 @@ namespace Project.Scripts.Gameplay
                             , Mathf.Infinity, cardsLayer))
                     {
                         SelectCard(hitCard);
-                        Debug.Log("third");
+                        Debug.Log("select card");
                     }
                 }
             };
@@ -72,29 +77,22 @@ namespace Project.Scripts.Gameplay
 
         #endregion
 
-        [SerializeField]
-        private Camera Camera;
+        [SerializeField] private Camera Camera;
 
         private static CardRepresentation SelectedCard;
         private Vector3 CardInitialPosition;
 
-        [SerializeField]
-        private LayerMask arenaLayer, cardsLayer;
+        [SerializeField] private LayerMask arenaLayer, cardsLayer;
 
-        [field: SerializeField]
-        public CardRepresentation CardOne { get; private set; }
+        [field: SerializeField] public CardRepresentation CardOne { get; private set; }
 
-        [field: SerializeField]
-        public CardRepresentation CardTwo { get; private set; }
+        [field: SerializeField] public CardRepresentation CardTwo { get; private set; }
 
-        [field: SerializeField]
-        public CardRepresentation CardThree { get; private set; }
+        [field: SerializeField] public CardRepresentation CardThree { get; private set; }
 
-        [field: SerializeField]
-        public CardRepresentation CardFour { get; private set; }
+        [field: SerializeField] public CardRepresentation CardFour { get; private set; }
 
-        [field: SerializeField]
-        public CardRepresentation NextCard { get; private set; }
+        [field: SerializeField] public CardRepresentation NextCard { get; private set; }
 
         private void Update()
         {
@@ -120,6 +118,11 @@ namespace Project.Scripts.Gameplay
             CardInitialPosition = SelectedCard.transform.position;
             SelectedCard.SelectCard(true);
             ArenaController.Instance.ShowArenaLimit(PlayerController.Instance.side);
+        }
+
+        private void UnselectCard()
+        {
+            SelectedCard.SelectCard(false);
         }
 
         private void PlaceCard(RaycastHit hit)
