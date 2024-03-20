@@ -4,24 +4,27 @@ using Project.Scripts.Core.Base;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[Serializable]
-public class Building : CardJSON, ISpawnable
+namespace Project.Scripts.Core.Cards
 {
-    public int CardActualHealth { get; set; }
-
-    public void Spawn()
+    [Serializable]
+    public class Building : Card, ISpawnable
     {
-        NetworkRunner.GetRunnerForScene(SceneManager.GetActiveScene())
-            .Spawn(GameObject.CreatePrimitive(PrimitiveType.Quad));
-    }
+        public int CardActualHealth { get; set; }
 
-    public void OnSpawn()
-    {
-        throw new System.NotImplementedException();
-    }
+        public void Spawn()
+        {
+            NetworkRunner.GetRunnerForScene(SceneManager.GetActiveScene())
+                .Spawn(GameObject.CreatePrimitive(PrimitiveType.Quad));
+        }
 
-    public void OnDie()
-    {
-        throw new System.NotImplementedException();
+        public void OnSpawn()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void OnDie()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

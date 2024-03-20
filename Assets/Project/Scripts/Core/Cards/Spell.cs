@@ -4,12 +4,15 @@ using Project.Scripts.Core.Base;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[Serializable]
-public class Spell : CardJSON
+namespace Project.Scripts.Core.Cards
 {
-    public virtual void Use()
+    [Serializable]
+    public class Spell : Card
     {
-        NetworkRunner.GetRunnerForScene(SceneManager.GetActiveScene())
-            .Spawn(GameObject.CreatePrimitive(PrimitiveType.Sphere));
+        public virtual void Use()
+        {
+            NetworkRunner.GetRunnerForScene(SceneManager.GetActiveScene())
+                .Spawn(GameObject.CreatePrimitive(PrimitiveType.Sphere));
+        }
     }
 }

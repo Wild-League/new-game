@@ -19,7 +19,6 @@ namespace Project.Scripts.Core.Base
         public Sprite[] img_attack;
         public Sprite[] img_death;
         public Sprite[] img_walk;
-        public bool readyToPlay = false;
     }
 
     [Serializable]
