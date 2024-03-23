@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace _Project.Scripts.Core.API
 {
-    public class PlayerInformation : InstancedMonoBehaviour<PlayerInformation>
+    public class PlayerInformation : SingletonMonoBehaviour<PlayerInformation>
     {
         public static UserInfo User;
     }

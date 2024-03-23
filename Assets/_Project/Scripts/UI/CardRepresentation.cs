@@ -28,7 +28,7 @@ namespace _Project.Scripts.UI
             }
         }
 
-        private Card _card;
+        [SerializeField] private Card _card;
 
         public Card cardInfo
         {
@@ -39,7 +39,7 @@ namespace _Project.Scripts.UI
                 {
                     if (gameObject.activeSelf) gameObject.SetActive(false);
                     _card = null;
-                    cardNameComp.SetText(String.Empty);
+                    cardNameComp.SetText(string.Empty);
                     cardCostComp.SetText(string.Empty);
                     cardImageComp.sprite = null;
 
@@ -75,7 +75,7 @@ namespace _Project.Scripts.UI
             gameObject.layer = selected ? LayerMask.NameToLayer("Ignore Raycast") : LayerMask.NameToLayer("Card");
         }
 
-        public void UseCard()
+        public void UseCard(Vector3 place)
         {
             switch (_card.type)
             {
@@ -84,12 +84,14 @@ namespace _Project.Scripts.UI
                     spell.Use();
                     break;
                 case "building":
-                    var build = (Building)_card;
-                    build.Spawn();
+                    var buildObj = Instantiate(ObjectHandler.Instance.Building);
+                    buildObj.card = _card as Building;
+                    buildObj.card.CardActualHealth = _card.life;
                     break;
                 case "char":
-                    var minion = (Minion)_card;
-                    minion.Spawn();
+                    var minionObj = Instantiate(ObjectHandler.Instance.Minion);
+                    minionObj.card = _card as Minion;
+                    minionObj.card.CardActualHealth = _card.life;
 
                     break;
                 default:

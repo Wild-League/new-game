@@ -93,9 +93,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2331894536835438654}
-  - component: {fileID: -6119303640998360592}
+  - component: {fileID: 60338396753625808}
   m_Layer: 0
-  m_Name: Minion
+  m_Name: Building
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117,7 +117,7 @@ Transform:
   - {fileID: 5872880559862495443}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-6119303640998360592
+--- !u!114 &60338396753625808
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8936080417735369105}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0edb9bf542cc4d5881f2b4d61d2564f9, type: 3}
+  m_Script: {fileID: 11500000, guid: aab3f03e00eb44eab17807b114e8f4ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   card:

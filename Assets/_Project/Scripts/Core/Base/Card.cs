@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace _Project.Scripts.Core.Base
 {
+    [Serializable]
     public class Card
     {
         public int id;
@@ -15,8 +16,8 @@ namespace _Project.Scripts.Core.Base
         public float speed;
         public float life;
         public Sprite img_card;
-        public Sprite img_preview; 
-        public Sprite[] img_attack; 
+        public Sprite img_preview;
+        public Sprite[] img_attack;
         public Sprite[] img_death;
         public Sprite[] img_walk;
     }
@@ -49,8 +50,8 @@ namespace _Project.Scripts.Core.Base
 
     public enum CardType
     {
-        Spell
-        , Building
-        , Char
+        Spell,
+        Building,
+        Char
     }
 }

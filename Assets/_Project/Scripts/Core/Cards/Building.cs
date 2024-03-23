@@ -7,24 +7,8 @@ using UnityEngine.SceneManagement;
 namespace _Project.Scripts.Core.Cards
 {
     [Serializable]
-    public class Building : Card, ISpawnable
+    public class Building : Card
     {
-        public int CardActualHealth { get; set; }
-
-        public void Spawn()
-        {
-            NetworkRunner.GetRunnerForScene(SceneManager.GetActiveScene())
-                .Spawn(GameObject.CreatePrimitive(PrimitiveType.Quad));
-        }
-
-        public void OnSpawn()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void OnDie()
-        {
-            throw new System.NotImplementedException();
-        }
+        public float CardActualHealth { get; set; }
     }
 }

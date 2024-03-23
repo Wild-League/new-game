@@ -7,7 +7,7 @@ namespace _Project.Scripts.Gameplay
     public class DeckController : MonoBehaviour
     {
         private GameObject cardPreview;
-        private static Vector3 CardOffset = new Vector3(.1f, -.2f, 0);
+        private static Vector3 CardOffset = new(.1f, -.2f, 0);
 
 
         public static DeckController Instance { get; private set; }
@@ -140,7 +140,7 @@ namespace _Project.Scripts.Gameplay
 
             if (hit.collider.CompareTag($"{PlayerController.Instance.side.ToString()} Arena"))
             {
-                SelectedCard.UseCard();
+                SelectedCard.UseCard(hit.point);
                 SelectedCard.transform.position = CardInitialPosition;
                 DeckCicle();
                 SelectedCard = null;
